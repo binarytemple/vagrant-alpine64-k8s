@@ -27,7 +27,13 @@ Vagrant.configure("2") do |cluster|
       config.vm.network "forwarded_port", guest: 22, host: "#{ssh_port}", id: 'ssh', auto_correct: true
 			config.vm.synced_folder ".", "/vagrant", disabled: true
 			config.vm.provision "shell", inline: <<-SHELL
-				echo "hello world"
+				echo "Provisioning..."
+
+				grep "http://dl-cdn.alpinelinux.org/alpine/v3.8/community/" /etc/apk/repositories \
+				|| echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/community/" >> /etc/apk/repositories
+				grep "@testing http://nl.alpinelinux.org/alpine/edge/testing" /etc/apk/repositories \
+				|| echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
 			SHELL
 		end
   end
