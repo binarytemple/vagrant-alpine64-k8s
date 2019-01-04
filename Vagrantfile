@@ -2,6 +2,15 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |cluster|
+
+	required_plugins = %w(vagrant-alpine)
+	required_plugins.each do |plugin|
+		unless Vagrant.has_plugin? plugin
+			puts "plugin #{plugin} is not installed"
+			exit(1)
+		end
+	end
+
 	(2..3).each do |index|
 		last_octet = index * 10
 		cluster.vm.define "vm#{index}" do |config|
