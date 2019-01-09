@@ -34,6 +34,12 @@ Vagrant.configure("2") do |cluster|
 				grep "@testing http://nl.alpinelinux.org/alpine/edge/testing" /etc/apk/repositories \
 				|| echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
+
+        sudo swapoff -a
+        apk add ebtables ethtool socat iproute2
+
+
+
 			SHELL
 		end
   end
